@@ -23,4 +23,4 @@ In main.py a working example is given.
 
 ## Experiment
 
-Run experiment.py to reproduce the results from paper.
+Run run_experiment.py to reproduce the results from paper.
