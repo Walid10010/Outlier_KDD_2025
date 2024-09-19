@@ -19,8 +19,7 @@ import glob
 from sklearn.model_selection import StratifiedShuffleSplit
 
 
-algo_dic ={ 'INNE':INNE}#} 'LOF':LOF, 'RCA':RCA,
-           #'RDP':RDP, 'DIF': DIF}
+
 
 algo_dic =  {'ADERH':ADERH, 'INNE':INNE, 'IForest':IForest,  'LOF':LOF,'DIF':DIF,  'DeepSVDD':DeepSVDD, 'OCSVM':OCSVM, 'ECOD':ECOD, 'LODA':LODA, 'RCA':RCA, 'RDP':RDP  }
 import glob
@@ -30,7 +29,7 @@ sss = StratifiedShuffleSplit(n_splits=3, test_size=0.3, random_state=0 )
 # algo_dic ={'ADERH_norm':ADERH}
 random_seeds = [0, 1, 2, 1000, 10000]
 
-for li in [glob.glob('Classical/*'), glob.glob('NLP_by_BERT/*'), glob.glob('CV_by_ResNet18/*')]:
+for li in [glob.glob('Classical/*')]:
  for data_name in li:
 
     #if '9_c' in data_name:continue
@@ -50,7 +49,7 @@ for li in [glob.glob('Classical/*'), glob.glob('NLP_by_BERT/*'), glob.glob('CV_b
         ap_score_value = 0
         from  sklearn.preprocessing import MinMaxScaler
         X = MinMaxScaler().fit_transform(X)
-        if X.shape[0] > 20000 or X.shape[0] < 1000:continue
+        #if X.shape[0] > 20000 or X.shape[0] < 1000:continue
         if algo_name in (['ADERH', 'INNE', 'IForest', 'DIF']):
             for seed in random_seeds:
              for i, (train_index, test_index) in enumerate(sss.split(X, Y)):
