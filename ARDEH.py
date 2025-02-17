@@ -169,7 +169,7 @@ class ADERH():
             x_dists = euclidean_distances(X, self._center[i], squared=True)
             self._centroids_radius[i] = np.where(
                 self._centroids_radius[i] !=0,
-                self._centroids_radius[i],1e-5)
+                self._centroids_radius[i],1)
 
             cover_radius = np.where(
                x_dists <=  self._centroids_radius[i],
@@ -185,8 +185,10 @@ class ADERH():
 
             den = self._loop_translate(cnn_x, dicc)
             den /=self._centroids_radius2[i][cnn_x]
+            if den.size == 0:
+                continue
             den = (den/den.max())
-            aderh_score[i][x_covered] = (((1-den))) * v
+            aderh_score[i][x_covered] = (1-den) * v
 
 
         outlier_score = np.mean(aderh_score, axis=0)
